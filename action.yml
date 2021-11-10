@@ -20,6 +20,7 @@ runs:
 
     - name: Install rsync
       run: apt-get install rsync openssh-client -y
+      shell: bash
 
     - name: Setup PHP with PECL extension
       uses: shivammathur/setup-php@v2
@@ -30,15 +31,20 @@ runs:
 
     - name: Setup Front-end
       run: make setup-front-end
+      shell: bash
 
     - name: Build Front-end
       run: make build-front-end
+      shell: bash
 
     - name: Setup Back-end
       run: make setup-back-end
+      shell: bash
 
     - name: Build Back-end
       run: make build-back-end
+      shell: bash
 
     - name: Deploy
       run: make deploy
+      shell: bash
