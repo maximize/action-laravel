@@ -19,7 +19,7 @@ runs:
         cache: 'npm'
 
     - name: Install rsync
-      run: apt-get install rsync openssh-client -y
+      run: sudo apt-get install rsync openssh-client -y
       shell: bash
 
     - name: Setup PHP with PECL extension
