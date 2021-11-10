@@ -1,0 +1,48 @@
+name: 'Laravel Build and Deploy'
+description: 'Greet someone'
+inputs:
+  node-version:
+    description: 'Version Node.js'
+    required: false
+    default: '16.x'
+  php-version:
+    description: 'Version PHP'
+    required: false
+    default: '7.4'
+outputs:
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+
+    - name: Install rsync
+      run: apt-get install rsync openssh-client -y
+
+    - name: Setup PHP with PECL extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php-version }}
+        extensions: mbstring
+        tools: composer
+
+    - name: Setup Front-end
+      run: make setup-front-end
+
+    - name: Build Front-end
+      run: make build-front-end
+
+    - name: Setup Back-end
+      run: make setup-back-end
+
+    - name: Build Back-end
+      run: make build-back-end
+
+    - name: Deploy
+      run: make deploy
