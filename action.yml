@@ -26,7 +26,7 @@ runs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ inputs.php-version }}
-        extensions: mbstring, mongodb
+        extensions: mbstring, mongodb-1.12.0
         tools: composer
 
     - name: Setup Front-end
